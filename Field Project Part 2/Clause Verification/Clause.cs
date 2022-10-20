@@ -35,14 +35,35 @@ namespace Clause_Verification
         //We made this variable an integer, we weren't sure if we would need it or not
         public int Dep_P_C { get; set; }
 
+
+        public Clause()
+        {
+            clauseID = string.Empty;
+            P_C = string.Empty;
+            IBR = string.Empty;
+            FILL_IN = string.Empty;
+            MONEY = string.Empty;
+            UCF = string.Empty;
+            FP_SUP = string.Empty;
+            CR_SUP = string.Empty;
+            FP_R_D = string.Empty;
+            CR_R_D = string.Empty;
+            FP_SVC = string.Empty;
+            CR_SVC = string.Empty;
+            FP_CON = string.Empty;
+            CR_CON = string.Empty;
+            T_M_LH = string.Empty;
+            LMV = string.Empty;
+            COM_SVC = string.Empty;
+            DDR = string.Empty;
+            A_E = string.Empty;
+            FAC = string.Empty;
+            IND_DEL = string.Empty;
+            TRN = string.Empty;
+            UTL_SVC = string.Empty;
+            Dep_P_C = 0;
+        }
     }
 
-   
-
-
-
-
-
-
-
 }
+
