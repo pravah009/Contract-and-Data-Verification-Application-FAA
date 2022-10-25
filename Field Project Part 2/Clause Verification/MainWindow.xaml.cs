@@ -20,9 +20,19 @@ namespace Clause_Verification
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private List<string> clausesNo = new List<string>();
+        public Dictionary<string, string> contract = new Dictionary<string, string>();
         public MainWindow()
         {
+            this.clausesNo = new List<string>();
+            this.contract = new Dictionary<string, string>();
             InitializeComponent();
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
