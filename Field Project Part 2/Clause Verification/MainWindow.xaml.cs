@@ -32,15 +32,7 @@ namespace Clause_Verification
 
             var lines = File.ReadAllLines("clause_matrix.csv").Skip(1);
 
-            foreach (var line in lines)
-            {
-                cars.Add(new Car(line));
-            }
-
-            foreach (var car in cars)
-            {
-                lstCars.Items.Add(car);
-            }
+            
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
