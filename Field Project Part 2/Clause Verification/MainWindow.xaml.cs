@@ -30,9 +30,25 @@ namespace Clause_Verification
             this.contract = new Dictionary<string, string>();
             InitializeComponent();
 
-            var lines = File.ReadAllLines("clause_matrix.csv").Skip(1);
 
-            
+
+            var clauseLine = File.ReadAllLines("clause_matrix.csv").Skip(1);
+            string[] contractLine = File.ReadAllLines("clause_matrix.csv");
+
+            foreach (var line in clauseLine)
+            {
+                string b = line;
+                b = b.Substring(0, b.IndexOf(','));
+                clausesNo.Add(b);
+            }
+
+            for (int i = 0; i < contractLine[0].Length; i++)
+            {
+                string code = contractLine[i];
+                contract.Add(code,"");
+            }
+            this.contractCombo.ItemsSource = contract.Keys;
+            this.clausesListBox.ItemsSource = clausesNo;
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
