@@ -34,6 +34,15 @@ namespace Clause_Verification
 
             var clauseLine = File.ReadAllLines("clause_matrix.csv").Skip(1);
             string[] contractLine = File.ReadAllLines("clause_matrix.csv");
+            contract.Clear();
+
+            string code = contractLine[0];
+            string[] piece = code.Split(",");
+            piece = piece.Skip(1).ToArray();
+            foreach (var item in piece)
+            {
+                contract.Add(item, "");
+            }
 
             foreach (var line in clauseLine)
             {
@@ -42,11 +51,6 @@ namespace Clause_Verification
                 clausesNo.Add(b);
             }
 
-            for (int i = 0; i < contractLine[0].Length; i++)
-            {
-                string code = contractLine[i];
-                contract.Add(code,"");
-            }
             this.contractCombo.ItemsSource = contract.Keys;
             this.clausesListBox.ItemsSource = clausesNo;
         }
