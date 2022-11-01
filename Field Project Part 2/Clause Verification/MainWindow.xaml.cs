@@ -43,7 +43,7 @@ namespace Clause_Verification
             {
                 contract.Add(item, "");
             }
-
+                
             foreach (var line in clauseLine)
             {
                 string b = line;
@@ -51,13 +51,18 @@ namespace Clause_Verification
                 clausesNo.Add(b);
             }
 
+            foreach (var item in contract.Keys)
+            {
+
+            }
+
             this.contractCombo.ItemsSource = contract.Keys;
             this.clausesListBox.ItemsSource = clausesNo;
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        private void getButton_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
     }
 }

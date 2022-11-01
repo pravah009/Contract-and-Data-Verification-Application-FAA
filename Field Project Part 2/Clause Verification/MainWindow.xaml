@@ -5,19 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Clause_Verification"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow"
+        Height="450"
+        Width="800">
     <Grid>
-        <ListBox x:Name="clausesListBox"
-                 Margin="486,22,10,22" />
-        <Label Content="Contracts"
+        <ScrollViewer Margin="212,86,324,31">
+            <ListBox x:Name="clausesListBox" />
+        </ScrollViewer>
+        <Label x:Name="contractLabels"
+               Content="Contracts"
                HorizontalAlignment="Left"
-               Margin="146,36,0,0"
-               VerticalAlignment="Top" />
+               Margin="86,72,0,0"
+               VerticalAlignment="Top"
+               FontSize="14" />
         <ComboBox x:Name="contractCombo"
                   HorizontalAlignment="Left"
-                  Margin="231,82,0,0"
+                  Margin="60,106,0,0"
                   VerticalAlignment="Top"
-                  Width="120" />
+                  Width="120"
+                  FontSize="14" />
+        <ScrollViewer Margin="508,86,27,31">
+            <ListBox x:Name="clausesListBox1" />
+        </ScrollViewer>
+        <Label x:Name="selectedContractClauses"
+               Content="All Required Clauses"
+               HorizontalAlignment="Left"
+               Margin="276,39,0,0"
+               VerticalAlignment="Top"
+               FontSize="14" />
+        <Label x:Name="missingContractClauses"
+               Content="All Missing Clauses"
+               HorizontalAlignment="Left"
+               Margin="577,39,0,0"
+               VerticalAlignment="Top"
+               FontSize="14" />
+        <Button x:Name="getButton"
+                Content="Get Clauses"
+                HorizontalAlignment="Left"
+                Margin="78,194,0,0"
+                VerticalAlignment="Top"
+                FontSize="14"
+                Width="84"
+                Click="getButton_Click" />
 
     </Grid>
 </Window>
