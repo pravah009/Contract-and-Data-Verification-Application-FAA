@@ -10,17 +10,18 @@
         Width="800">
     <Grid>
         <ScrollViewer Margin="212,86,324,31">
-            <ListBox x:Name="clausesListBox" />
+            <ListBox x:Name="clausesLB"
+                     />
         </ScrollViewer>
         <Label x:Name="contractLabels"
                Content="Contracts"
                HorizontalAlignment="Left"
-               Margin="86,72,0,0"
+               Margin="86,120,0,0"
                VerticalAlignment="Top"
                FontSize="14" />
         <ComboBox x:Name="contractCombo"
                   HorizontalAlignment="Left"
-                  Margin="60,106,0,0"
+                  Margin="60,154,0,0"
                   VerticalAlignment="Top"
                   Width="120"
                   FontSize="14" />
@@ -42,7 +43,7 @@
         <Button x:Name="getButton"
                 Content="Get Clauses"
                 HorizontalAlignment="Left"
-                Margin="78,194,0,0"
+                Margin="78,261,0,0"
                 VerticalAlignment="Top"
                 FontSize="14"
                 Width="84"

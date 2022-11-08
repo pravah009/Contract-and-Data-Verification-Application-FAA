@@ -23,46 +23,67 @@ namespace Clause_Verification
     {
 
         private List<string> clausesNo = new List<string>();
-        public Dictionary<string, string> contract = new Dictionary<string, string>();
+        public Dictionary<string, List<string>> contract = new Dictionary<string, List<string>>();
+        public Dictionary<string, List<string>> temp = new Dictionary<string, List<string>>();
         public MainWindow()
         {
             this.clausesNo = new List<string>();
-            this.contract = new Dictionary<string, string>();
+            this.contract = new Dictionary<string, List<string>>();
+            this.temp = new Dictionary<string, List<string>>();
             InitializeComponent();
 
 
+            //Getting clause numbers
+            /*var clauseLine = File.ReadAllLines("clause_matrix.csv").Skip(1);
 
-            var clauseLine = File.ReadAllLines("clause_matrix.csv").Skip(1);
-            string[] contractLine = File.ReadAllLines("clause_matrix.csv");
-            contract.Clear();
-
-            string code = contractLine[0];
-            string[] piece = code.Split(",");
-            piece = piece.Skip(1).ToArray();
-            foreach (var item in piece)
-            {
-                contract.Add(item, "");
-            }
-                
             foreach (var line in clauseLine)
             {
                 string b = line;
                 b = b.Substring(0, b.IndexOf(','));
                 clausesNo.Add(b);
-            }
+            }*/
 
-            foreach (var item in contract.Keys)
+            //Getting contract codes
+            string[] contractLine = File.ReadAllLines("clause_matrix.csv");
+
+            /*string code = contractLine[0];
+            string[] piece = code.Split(",");
+            piece = piece.Skip(1).ToArray();
+            foreach (var item in piece)
             {
+                contract.Add(item, clausesNo);
+            }*/
 
+            string[] henceForth = contractLine[0].Split(",");
+            for (int i = 1; i < henceForth.Length; i++)
+            {
+                string cName = henceForth[i];
+                temp.Add(cName, new List<string>());
+                for (int j = 1; j < contractLine.Length; j++)
+                {
+                    string[] bite = contractLine[j].Split(",");
+
+                    if (bite[i] == "R")
+                    {
+                        temp[cName].Add(bite[0] + "\n");
+                    }
+
+                }
             }
 
-            this.contractCombo.ItemsSource = contract.Keys;
-            this.clausesListBox.ItemsSource = clausesNo;
+            this.contractCombo.ItemsSource = temp.Keys;
+            //this.clausesListBox.ItemsSource = clausesNo;
         }
 
         private void getButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            foreach (var item in temp.Keys)
+            {
+                if (item == contractCombo.SelectedItem.ToString())
+                {
+                    clausesLB.ItemsSource = temp[item];
+                }
+            }
         }
     }
 }
