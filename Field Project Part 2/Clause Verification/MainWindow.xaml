@@ -10,8 +10,7 @@
         Width="800">
     <Grid>
         <ScrollViewer Margin="212,86,324,31">
-            <ListBox x:Name="clausesLB"
-                     />
+            <ListBox x:Name="clausesLB" />
         </ScrollViewer>
         <Label x:Name="contractLabels"
                Content="Contracts"
