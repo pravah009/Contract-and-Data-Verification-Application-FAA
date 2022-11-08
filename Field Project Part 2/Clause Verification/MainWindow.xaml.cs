@@ -13,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using IronPdf;
 
 namespace Clause_Verification
 {
@@ -84,6 +83,24 @@ namespace Clause_Verification
                 {
                     clausesLB.ItemsSource = temp[item];
                 }
+            }
+        }
+
+        private void btn_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog();
+            dialog.FileName = "Document"; // Default file name
+            dialog.DefaultExt = ".pdf"; // Default file extension
+            dialog.Filter = "PDF documents (.pdf)|*.pdf"; // Filter files by extension
+
+            // Show open file dialog box
+            bool? result = dialog.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                // Open document
+                string filename = dialog.FileName;
             }
         }
     }

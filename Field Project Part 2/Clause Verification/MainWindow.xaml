@@ -25,7 +25,7 @@
                   Width="120"
                   FontSize="14" />
         <ScrollViewer Margin="508,86,27,31">
-            <ListBox x:Name="clausesListBox1" />
+            <ListBox x:Name="clausesListBox" />
         </ScrollViewer>
         <Label x:Name="selectedContractClauses"
                Content="All Required Clauses"
@@ -47,6 +47,13 @@
                 FontSize="14"
                 Width="84"
                 Click="getButton_Click" />
+        <Button x:Name="btn"
+                Content="Button"
+                HorizontalAlignment="Left"
+                Margin="100,343,0,0"
+                VerticalAlignment="Top"
+                RenderTransformOrigin="-0.53,0.653"
+                Click="btn_Click" />
 
     </Grid>
 </Window>
