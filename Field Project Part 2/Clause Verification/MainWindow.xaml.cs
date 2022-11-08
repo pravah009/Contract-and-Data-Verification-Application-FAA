@@ -33,7 +33,7 @@ namespace Clause_Verification
             InitializeComponent();
 
 
-            //Getting clause numbers
+            //Getting clause number
             /*var clauseLine = File.ReadAllLines("clause_matrix.csv").Skip(1);
 
             foreach (var line in clauseLine)
