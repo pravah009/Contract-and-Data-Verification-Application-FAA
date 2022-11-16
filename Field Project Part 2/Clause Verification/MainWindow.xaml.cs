@@ -28,6 +28,7 @@ namespace Clause_Verification
         private List<string> clausesNo = new List<string>();
         public Dictionary<string, List<string>> contract = new Dictionary<string, List<string>>();
         public Dictionary<string, List<string>> temp = new Dictionary<string, List<string>>();
+        string str;
         public MainWindow()
         {
             this.clausesNo = new List<string>();
@@ -68,7 +69,7 @@ namespace Clause_Verification
 
                     if (bite[i] == "R")
                     {
-                        temp[cName].Add(bite[0] + "\n");
+                        temp[cName].Add(bite[0]);
                     }
 
                 }
@@ -89,52 +90,59 @@ namespace Clause_Verification
             }
 
             StringBuilder sb = new StringBuilder();
-            
-            string file = @"C:\Users\1314CK\Desktop\ITSS Redacted - 6973GH-19-D-00031 ITSS_Redacted.pdf";
+
+            //string file = @"C:\Users\1314CK\Desktop\ITSS Redacted - 6973GH-19-D-00031 ITSS_Redacted.pdf";
+            string file = str;
             using (PdfReader reader = new PdfReader(file))
-            
+
             {
-            
+
                 for (int pageNo = 1; pageNo <= reader.NumberOfPages; pageNo++)
-            
+
                 {
-            
+
                     ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
-            
+
                     string text = PdfTextExtractor.GetTextFromPage(reader, pageNo, strategy);
-            
+
                     text = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8, Encoding.Default.GetBytes(text)));
-            
+
                     sb.Append(text);
-            
+
                 }
-            
+
             }
 
             //missingTB.Text = sb.ToString();
             string s = sb.ToString();
-            string[] con = s.Split("\n");
 
             string selected = contractCombo.SelectedItem.ToString();
 
 
             foreach (var item in temp[selected])
             {
-                //if (con.Contains(item) == false)
-                //{
-                //    missingTB.Text += item+"\n";
-                //}
-                foreach (var items in con)
+                if (s.Contains(item) == false)
                 {
-                    if (items.Contains(item)==false)
-                    {
-                        missingTB.Text += item + "\n";
-                    }
+                    missingTB.Text += item + "\n";
                 }
+                //foreach (var items in con)
+                //{
+                //    if (items.Contains(item)==false)
+                //    {
+                //        missingTB.Text += item + "\n";
+                //    }
+                //}
             }
         }
 
-        private void btn_Click(object sender, RoutedEventArgs e)
+        private void reset_Click(object sender, RoutedEventArgs e)
+        {
+
+            missingTB.Clear();
+        }
+
+
+        private void upload_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new Microsoft.Win32.OpenFileDialog();
             dialog.FileName = "Document"; // Default file name
@@ -149,8 +157,8 @@ namespace Clause_Verification
             {
                 // Open document
                 string filename = dialog.FileName;
+                str = filename;
             }
         }
-
     }
 }

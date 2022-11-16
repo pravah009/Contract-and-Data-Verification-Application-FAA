@@ -47,12 +47,21 @@
                 FontSize="14"
                 Width="84"
                 Click="getButton_Click" />
-        <Button x:Name="btn"
-                Content="Button"
-                Click="btn_Click"
+        <Button x:Name="reset"
+                Content="Reset"
+                Click="reset_Click"
                 HorizontalAlignment="Left"
-                Margin="120,342,0,0"
-                VerticalAlignment="Top" />
+                Margin="102,309,0,0"
+                VerticalAlignment="Top"
+                RenderTransformOrigin="-0.398,0.448"
+                FontSize="14" />
+        <Button x:Name="upload"
+                Content="Upload Contract"
+                Click="upload_Click"
+                HorizontalAlignment="Left"
+                Margin="68,217,0,0"
+                VerticalAlignment="Top"
+                FontSize="14" />
 
     </Grid>
 </Window>
