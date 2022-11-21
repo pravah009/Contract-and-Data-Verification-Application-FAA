@@ -26,8 +26,10 @@ namespace Clause_Verification
     {
 
         private List<string> clausesNo = new List<string>();
+        public List<string> docType = new List<string>() {"Solicitaion", "Contract"};
         public Dictionary<string, List<string>> contract = new Dictionary<string, List<string>>();
         public Dictionary<string, List<string>> temp = new Dictionary<string, List<string>>();
+        public Dictionary<string, List<string>> temp2 = new Dictionary<string, List<string>>();
         string str;
         public MainWindow()
         {
@@ -48,7 +50,7 @@ namespace Clause_Verification
             }*/
 
             //Getting contract codes
-            string[] contractLine = File.ReadAllLines("clause_matrix.csv");
+            string[] contractLine = File.ReadAllLines("clause_matrix_updated.csv");
 
             /*string code = contractLine[0];
             string[] piece = code.Split(",");
@@ -59,7 +61,7 @@ namespace Clause_Verification
             }*/
 
             string[] henceForth = contractLine[0].Split(",");
-            for (int i = 1; i < henceForth.Length; i++)
+            for (int i = 2; i < henceForth.Length; i++)
             {
                 string cName = henceForth[i];
                 temp.Add(cName, new List<string>());
@@ -67,7 +69,8 @@ namespace Clause_Verification
                 {
                     string[] bite = contractLine[j].Split(",");
 
-                    if (bite[i] == "R")
+                    if()
+                    else (bite[i] == "R")
                     {
                         temp[cName].Add(bite[0]);
                     }
@@ -76,11 +79,13 @@ namespace Clause_Verification
             }
 
             this.contractCombo.ItemsSource = temp.Keys;
+            this.typeCombo.ItemsSource = docType;
             //this.clausesListBox.ItemsSource = clausesNo;
         }
 
         private void getButton_Click(object sender, RoutedEventArgs e)
         {
+            missingTB.Clear();
             foreach (var item in temp.Keys)
             {
                 if (item == contractCombo.SelectedItem.ToString())
@@ -135,13 +140,6 @@ namespace Clause_Verification
             }
         }
 
-        private void reset_Click(object sender, RoutedEventArgs e)
-        {
-
-            missingTB.Clear();
-        }
-
-
         private void upload_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new Microsoft.Win32.OpenFileDialog();
@@ -160,5 +158,6 @@ namespace Clause_Verification
                 str = filename;
             }
         }
+
     }
 }
