@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
-        Width="1000">
+        Width="1250">
     <Grid>
-        <ScrollViewer Margin="249,86,565,31"
+        <ScrollViewer Margin="250,86,765,31"
                       Width="185"
                       Height="318">
             <ListBox x:Name="clausesLB"
@@ -28,30 +28,39 @@
                   VerticalAlignment="Top"
                   Width="120"
                   FontSize="14" />
-        <ScrollViewer Margin="500,86,318,31"
+        <ScrollViewer Margin="500,86,515,31"
                       Width="185"
                       Height="318">
             <TextBox x:Name="missingTB"
                      Width="185"
-                     Height="318" />
+                     Height="318"
+                     IsReadOnly="True" />
         </ScrollViewer>
-        <ScrollViewer Margin="750,86,65,31"
+        <ScrollViewer Margin="750,86,260,31"
                       Width="185"
                       Height="318">
-            <TextBox x:Name="notReqTB"
+            <ListBox x:Name="notReqLB"
                      Width="185"
                      Height="318" />
+        </ScrollViewer>
+        <ScrollViewer Margin="1000,86,15,31"
+                      Width="185"
+                      Height="318">
+            <TextBox x:Name="missingNotReqTB"
+                     Width="185"
+                     Height="318"
+                     IsReadOnly="True" />
         </ScrollViewer>
         <Label x:Name="selectedContractClauses"
                Content="All Required Clauses"
                HorizontalAlignment="Left"
-               Margin="276,39,0,0"
+               Margin="300,39,0,0"
                VerticalAlignment="Top"
                FontSize="14" />
         <Label x:Name="missingContractClauses"
-               Content="All Missing Clauses"
+               Content="Missing Required Clauses"
                HorizontalAlignment="Left"
-               Margin="527,39,0,0"
+               Margin="534,39,0,0"
                VerticalAlignment="Top"
                FontSize="14" />
         <Button x:Name="getButton"
@@ -81,9 +90,15 @@
                   VerticalAlignment="Top"
                   Width="120" />
         <Label x:Name="notReqContractClauses"
-               Content="Not Required Clauses"
+               Content="Non Required Clauses"
                HorizontalAlignment="Left"
-               Margin="779,39,0,0"
+               Margin="797,39,0,0"
+               VerticalAlignment="Top"
+               FontSize="14" />
+        <Label x:Name="missingNotReqContractClauses"
+               Content="Missing Non-Required Clauses"
+               HorizontalAlignment="Left"
+               Margin="1018,39,0,0"
                VerticalAlignment="Top"
                FontSize="14" />
 

@@ -25,74 +25,113 @@ namespace Clause_Verification
     public partial class MainWindow : Window
     {
 
-        private List<string> clausesNo = new List<string>();
-        public List<string> docType = new List<string>() {"Solicitaion", "Contract"};
-        public Dictionary<string, List<string>> contract = new Dictionary<string, List<string>>();
-        public Dictionary<string, List<string>> temp = new Dictionary<string, List<string>>();
+        //private List<string> clausesNo = new List<string>();
+        public List<string> docType = new List<string>() { "Solicitaion", "Contract" };
+        public Dictionary<string, List<string>> temp1 = new Dictionary<string, List<string>>();
         public Dictionary<string, List<string>> temp2 = new Dictionary<string, List<string>>();
+        public Dictionary<string, List<string>> notReq1 = new Dictionary<string, List<string>>();
+        public Dictionary<string, List<string>> notReq2 = new Dictionary<string, List<string>>();
         string str;
         public MainWindow()
         {
-            this.clausesNo = new List<string>();
-            this.contract = new Dictionary<string, List<string>>();
-            this.temp = new Dictionary<string, List<string>>();
+            //this.clausesNo = new List<string>();
+            this.notReq1 = new Dictionary<string, List<string>>();
+            this.notReq2 = new Dictionary<string, List<string>>();
+            this.temp1 = new Dictionary<string, List<string>>();
+            this.temp2 = new Dictionary<string, List<string>>();
             InitializeComponent();
 
-
-            //Getting clause number
-            /*var clauseLine = File.ReadAllLines("clause_matrix.csv").Skip(1);
-
-            foreach (var line in clauseLine)
-            {
-                string b = line;
-                b = b.Substring(0, b.IndexOf(','));
-                clausesNo.Add(b);
-            }*/
-
-            //Getting contract codes
             string[] contractLine = File.ReadAllLines("clause_matrix_updated.csv");
-
-            /*string code = contractLine[0];
-            string[] piece = code.Split(",");
-            piece = piece.Skip(1).ToArray();
-            foreach (var item in piece)
-            {
-                contract.Add(item, clausesNo);
-            }*/
 
             string[] henceForth = contractLine[0].Split(",");
             for (int i = 2; i < henceForth.Length; i++)
             {
                 string cName = henceForth[i];
-                temp.Add(cName, new List<string>());
+                temp2.Add(cName, new List<string>());
+                temp1.Add(cName, new List<string>());
+                notReq1.Add(cName, new List<string>());
+                notReq2.Add(cName, new List<string>());
+
                 for (int j = 1; j < contractLine.Length; j++)
                 {
                     string[] bite = contractLine[j].Split(",");
 
-                    if()
-                    else (bite[i] == "R")
+                    if (bite[i] == "R" && bite[1] == "C")
                     {
-                        temp[cName].Add(bite[0]);
+                        temp1[cName].Add(bite[0]);
+                    }
+
+                    if (bite[i] == "R")
+                    {
+                        temp2[cName].Add(bite[0]);
+                    }
+
+                    if (bite[1] == "C")
+                    {
+                        if (bite[i] == "A" || bite[i] == "O")
+                        {
+                            notReq1[cName].Add(bite[0]);
+                        }
+                    }
+                    
+                    if (bite[i] == "A" || bite[i] == "O")
+                    {
+                        notReq2[cName].Add(bite[0]);
                     }
 
                 }
             }
+            
 
-            this.contractCombo.ItemsSource = temp.Keys;
+            this.contractCombo.ItemsSource = temp1.Keys;
             this.typeCombo.ItemsSource = docType;
-            //this.clausesListBox.ItemsSource = clausesNo;
         }
 
         private void getButton_Click(object sender, RoutedEventArgs e)
         {
-            missingTB.Clear();
-            foreach (var item in temp.Keys)
+            missingTB.Clear(); 
+            //missingNotReqTB.Clear();
+            string type = typeCombo.SelectedItem.ToString();
+
+            //Required Clauses depending on type of document
+            if (type == "Contract")
             {
-                if (item == contractCombo.SelectedItem.ToString())
+                foreach (var item in temp1.Keys)
                 {
-                    clausesLB.ItemsSource = temp[item];
+                    if (item == contractCombo.SelectedItem.ToString())
+                    {
+                        clausesLB.ItemsSource = temp1[item];
+                    }
+                }
+
+                foreach (var item in notReq1.Keys)
+                {
+                    if (item == contractCombo.SelectedItem.ToString())
+                    {
+                        notReqLB.ItemsSource = notReq1[item];
+                    }
                 }
             }
+            else
+            {
+                foreach (var item in temp2.Keys)
+                {
+                    if (item == contractCombo.SelectedItem.ToString())
+                    {
+                        clausesLB.ItemsSource = temp2[item];
+                    }
+                }
+
+                foreach (var item in notReq2.Keys)
+                {
+                    if (item == contractCombo.SelectedItem.ToString())
+                    {
+                        notReqLB.ItemsSource = notReq2[item];
+                    }
+                }
+            }
+
+
 
             StringBuilder sb = new StringBuilder();
 
@@ -118,25 +157,45 @@ namespace Clause_Verification
 
             }
 
-            //missingTB.Text = sb.ToString();
             string s = sb.ToString();
 
             string selected = contractCombo.SelectedItem.ToString();
 
-
-            foreach (var item in temp[selected])
+            if (type == "Contract")
             {
-                if (s.Contains(item) == false)
+                foreach (var item in temp1[selected])
                 {
-                    missingTB.Text += item + "\n";
+                    if (s.Contains(item) == false)
+                    {
+                        missingTB.Text += item + "\n";
+                    }
                 }
-                //foreach (var items in con)
-                //{
-                //    if (items.Contains(item)==false)
-                //    {
-                //        missingTB.Text += item + "\n";
-                //    }
-                //}
+
+                foreach (var item in notReq1[selected])
+                {
+                    if (s.Contains(item) == false)
+                    {
+                        missingNotReqTB.Text += item + "\n";
+                    }
+                }
+            }
+            else
+            {
+                foreach (var item in temp2[selected])
+                {
+                    if (s.Contains(item) == false)
+                    {
+                        missingTB.Text += item + "\n";
+                    }
+                }
+
+                foreach (var item in notReq2[selected])
+                {
+                    if (s.Contains(item) == false)
+                    {
+                        missingNotReqTB.Text += item + "\n";
+                    }
+                }
             }
         }
 
