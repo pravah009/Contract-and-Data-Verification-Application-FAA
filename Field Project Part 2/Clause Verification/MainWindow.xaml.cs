@@ -24,8 +24,7 @@ namespace Clause_Verification
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        //private List<string> clausesNo = new List<string>();
+        //Collections holding all the data from the clause matrix
         public List<string> docType = new List<string>() { "Solicitaion", "Contract" };
         public Dictionary<string, List<string>> temp1 = new Dictionary<string, List<string>>();
         public Dictionary<string, List<string>> temp2 = new Dictionary<string, List<string>>();
@@ -34,16 +33,20 @@ namespace Clause_Verification
         string str;
         public MainWindow()
         {
-            //this.clausesNo = new List<string>();
+            //Instantaneous variables of the collection
             this.notReq1 = new Dictionary<string, List<string>>();
             this.notReq2 = new Dictionary<string, List<string>>();
             this.temp1 = new Dictionary<string, List<string>>();
             this.temp2 = new Dictionary<string, List<string>>();
             InitializeComponent();
-
+            /*-------------------------------------------------------------------------------------------------------------------------------------------*/
+            //Reading-in the matrix
             string[] contractLine = File.ReadAllLines("clause_matrix_updated.csv");
-
+            /*-------------------------------------------------------------------------------------------------------------------------------------------*/
+            //Splitting the contract types
             string[] henceForth = contractLine[0].Split(",");
+            /*-------------------------------------------------------------------------------------------------------------------------------------------*/
+            //Getting data from the matrix and storing it in the respective collections with conditional formatting
             for (int i = 2; i < henceForth.Length; i++)
             {
                 string cName = henceForth[i];
@@ -81,18 +84,19 @@ namespace Clause_Verification
 
                 }
             }
-
-
+            /*-------------------------------------------------------------------------------------------------------------------------------------------*/
+            //Options in the drop-down list
             this.contractCombo.ItemsSource = temp1.Keys;
             this.typeCombo.ItemsSource = docType;
         }
-
+        /*-------------------------------------------------------------------------------------------------------------------------------------------*/
+        //"Get Clauses" button functionality
         private void getButton_Click(object sender, RoutedEventArgs e)
         {
             missingTB.Clear();
-            //missingNotReqTB.Clear();
+            missingNotReqTB.Clear();
             string type = typeCombo.SelectedItem.ToString();
-
+            /*-------------------------------------------------------------------------------------------------------------------------------------------*/
             //Required Clauses depending on type of document
             if (type == "Contract")
             {
@@ -130,21 +134,15 @@ namespace Clause_Verification
                     }
                 }
             }
-
-
-
+            /*-------------------------------------------------------------------------------------------------------------------------------------------*/
+            //Getting the contract PDF file
             StringBuilder sb = new StringBuilder();
-
             //string file = @"C:\Users\1314CK\Desktop\ITSS Redacted - 6973GH-19-D-00031 ITSS_Redacted.pdf";
             string file = str;
             using (PdfReader reader = new PdfReader(file))
-
             {
-
                 for (int pageNo = 1; pageNo <= reader.NumberOfPages; pageNo++)
-
                 {
-
                     ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
 
                     string text = PdfTextExtractor.GetTextFromPage(reader, pageNo, strategy);
@@ -152,13 +150,11 @@ namespace Clause_Verification
                     text = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8, Encoding.Default.GetBytes(text)));
 
                     sb.Append(text);
-
                 }
-
             }
-
             string s = sb.ToString();
-
+            /*-------------------------------------------------------------------------------------------------------------------------------------------*/
+            //Getting missing required "R" and non-required "A" or "O" clauses
             string selected = contractCombo.SelectedItem.ToString();
 
             if (type == "Contract")
@@ -198,7 +194,8 @@ namespace Clause_Verification
                 }
             }
         }
-
+        /*-------------------------------------------------------------------------------------------------------------------------------------------*/
+        //"Upload Contract" button functionality
         private void upload_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new Microsoft.Win32.OpenFileDialog();
@@ -217,6 +214,5 @@ namespace Clause_Verification
                 str = filename;
             }
         }
-
     }
 }
