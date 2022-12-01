@@ -73,7 +73,7 @@ namespace Clause_Verification
                             notReq1[cName].Add(bite[0]);
                         }
                     }
-                    
+
                     if (bite[i] == "A" || bite[i] == "O")
                     {
                         notReq2[cName].Add(bite[0]);
@@ -81,7 +81,7 @@ namespace Clause_Verification
 
                 }
             }
-            
+
 
             this.contractCombo.ItemsSource = temp1.Keys;
             this.typeCombo.ItemsSource = docType;
@@ -89,7 +89,7 @@ namespace Clause_Verification
 
         private void getButton_Click(object sender, RoutedEventArgs e)
         {
-            missingTB.Clear(); 
+            missingTB.Clear();
             //missingNotReqTB.Clear();
             string type = typeCombo.SelectedItem.ToString();
 
